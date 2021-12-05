@@ -52,10 +52,10 @@
 .input_container {
   width: 80%;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 2rem auto 0;
   @media (min-width: $device-size--L) {
     width: 400px;
-    margin: 1rem 0 0 5rem;
+    margin: 3rem 0 0 5rem;
   }
 }
 
@@ -71,6 +71,19 @@
 
   strong {
     color: #d32f2f;
+  }
+}
+
+.description {
+  width: 92%;
+  max-width: 35rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  word-break: keep-all;
+  margin: 0 auto;
+  @media (min-width: $device-size--L) {
+    padding-right: 2rem;
+    margin: 0;
   }
 }
 

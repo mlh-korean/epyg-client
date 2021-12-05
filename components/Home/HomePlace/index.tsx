@@ -1,7 +1,8 @@
-import { useEffect, Dispatch, SetStateAction, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import styles from './HomePlace.module.scss'
 import CircularProgress from '@mui/material/CircularProgress';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
 interface HomePlaceProps {
   value: unknown
@@ -10,6 +11,7 @@ interface HomePlaceProps {
 const HomePlace = ({
   value,
 }: HomePlaceProps) => {
+  const trendRef = useRef<HTMLDivElement>(null);
   const [trends, setTrends] = useState<any[]>([])
   const [images, setImages] = useState<string[]>([])
   const [place, setPlace] = useState<{
@@ -32,7 +34,31 @@ const HomePlace = ({
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchTrends = () => {
-    setTrends([])
+    setTrends([{
+      '2022-02-01': 20,
+    }, {
+      '2022-02-02': 30
+    }, {
+      '2022-02-03': 40
+    }, {
+      '2022-02-04': 35
+    }, {
+      '2022-02-05': 30
+    }, {
+      '2022-02-06': 40
+    }, {
+      '2022-02-07': 60
+    }, {
+      '2022-02-08': 20
+    }, {
+      '2022-02-09': 10
+    }, {
+      '2022-02-10': 40
+    }, {
+      '2022-02-11': 30
+    }, {
+      '2022-02-12': 35
+    }])
   }
   
   useEffect(() => {
@@ -40,8 +66,27 @@ const HomePlace = ({
       fetchPlace()
       fetchImages()
       fetchTrends()
+      console.log('done!')
     }, 1000)
-  }, [value, fetchImages, fetchPlace, fetchTrends])
+  }, [value])
+
+  const convertedTrends = useMemo(() => {
+    const convertedData: {
+      time: any
+      count: any
+    }[] = []
+    trends.forEach((trend: any) => {
+      const destructured = Object.entries(trend)[0]
+      convertedData.push({
+        time: destructured[0],
+        count: destructured[1]
+      })
+    })
+    console.log('data : ', convertedData)
+    return convertedData
+  }, [ trends ])
+
+  console.log('trendRef?.current : ', trendRef?.current?.offsetHeight, trendRef?.current?.clientHeight)
 
   return (
     <div>
@@ -60,12 +105,24 @@ const HomePlace = ({
             <CircularProgress/>
           }
         </div>
-        <div className={styles.trends}>
+        <div 
+          className={styles.trends}
+          ref={trendRef}
+        >
           {trends.length > 0
             ?
-            <div>
-
-            </div>
+            <LineChart
+              width={trendRef?.current?.clientWidth ?? 400}
+              height={trendRef?.current?.clientHeight ?? 300}
+              data={convertedTrends}
+              margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+            >
+              <Line type="monotone" dataKey="count" stroke="#8884d8" />
+              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip />
+            </LineChart>
             :
             <CircularProgress/>
           }

@@ -15,11 +15,12 @@ const Home = () => {
           <div className={styles.title_container}>
             <h1 className={styles.title}>
               <strong>EPYG</strong> will find<br/>
-              the 0000 for<br/>
-              Every Place You Go
+              the congestion<br/>
+              for winter vacation
             </h1>
-            <p>
-              this is the description part
+            <p className={styles.description}>
+              This is perfect time to go winter vacation with your beloved people.<br/>
+              We will help you to find quiet place that you do not need to worry about COVID-19. EPYG is for Every Place You Go!
             </p>
           </div>
           <div className={styles.input_container}>
