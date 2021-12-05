@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import styles from './HomePlace.module.scss'
 import CircularProgress from '@mui/material/CircularProgress';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import axios from 'axios';
 
 interface HomePlaceProps {
   value: unknown
@@ -19,8 +20,13 @@ const HomePlace = ({
     lng: number
   } | null>(null) // null
 
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchPlace = () => {
+  const fetchPlace = async () => {
+    const response = await axios.post('http://localhost:2000/location', {
+      place: (value as any).structured_formatting.main_text
+    })
+    console.log('response : ', response)
     setPlace({
       lat: 59.95,
       lng: 30.33
@@ -82,11 +88,8 @@ const HomePlace = ({
         count: destructured[1]
       })
     })
-    console.log('data : ', convertedData)
     return convertedData
   }, [ trends ])
-
-  console.log('trendRef?.current : ', trendRef?.current?.offsetHeight, trendRef?.current?.clientHeight)
 
   return (
     <div>
