@@ -39,7 +39,7 @@ const Home = () => {
       {value &&
         <div className={styles.result}>
           <h2>
-            0000 of<br/>
+            congestion level of<br/>
             {(value as any).structured_formatting.main_text}
           </h2>
 
