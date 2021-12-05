@@ -8,37 +8,22 @@ import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle';
 
-function loadScript(src: any, position: any, id: any) {
-  if (!position) {
-    return;
-  }
-
-  const script = document.createElement('script');
-  script.setAttribute('async', '');
-  script.setAttribute('id', id);
-  script.src = src;
-  position.appendChild(script);
-}
-
 const autocompleteService: any = { current: null };
 
-const HomeInput = () => {
-  const [value, setValue] = React.useState(null);
-  const [inputValue, setInputValue] = React.useState('');
+interface HomeInputProps {
+  value: unknown | null
+  setValue: React.Dispatch<React.SetStateAction<unknown | null>>
+  inputValue: string
+  setInputValue: React.Dispatch<React.SetStateAction<string>>
+}
+
+const HomeInput = ({
+  value,
+  setValue,
+  inputValue,
+  setInputValue
+}: HomeInputProps) => {
   const [options, setOptions] = React.useState<any>([]);
-  const loaded = React.useRef(false);
-
-  if (typeof window !== 'undefined' && !loaded.current) {
-    if (!document.querySelector('#google-maps')) {
-      loadScript(
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyBwRp1e12ec1vOTtGiA4fcCt2sCUS78UYc&libraries=places',
-        document.querySelector('head'),
-        'google-maps',
-      );
-    }
-
-    loaded.current = true;
-  }
 
   const fetch = React.useMemo(
     () =>

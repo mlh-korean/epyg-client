@@ -1,0 +1,104 @@
+@import '/styles/var';
+
+.container {
+  
+}
+
+.visuals {
+  text-align: center;
+  @media (min-width: $device-size--L) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  div + div {
+    margin-top: 2rem;
+    @media (min-width: $device-size--L) {
+      margin: 0;
+    }
+  }
+}
+
+.map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 240px;
+  margin: 0 auto;
+  @media (min-width: $device-size--M) {
+    width: 40rem;
+    height: 30rem;
+  }
+  @media (min-width: $device-size--L) {
+    width: 47%;
+    height: 24rem;
+    margin: 0;
+  }
+}
+
+.trends {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 240px;
+  margin: 0 auto;
+  background-color: gray;
+  @media (min-width: $device-size--M) {
+    width: 40rem;
+    height: 30rem;
+  }
+  @media (min-width: $device-size--L) {
+    width: 47%;
+    height: 24rem;
+    margin: 0;
+  }
+}
+
+.images {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: $device-size--L) {
+    margin-top: 3rem;
+  }
+}
+
+.image_list {
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 300px;
+  @media (min-width: $device-size--M) {
+    width: 600px;
+  }
+  @media (min-width: $device-size--L) {
+    width: 100%;
+  }
+
+  img {
+    margin-top: 1rem;
+    width: 142px;
+    height: 142px;
+    background-color: gray;
+    border-radius: .5rem;
+    @media (min-width: $device-size--M) {
+      margin-top: 2rem;
+      width: 286px;
+      height: 286px;
+    }
+    @media (min-width: $device-size--L) {
+      width: 286px;
+      height: 286px;
+    }
+    @media (min-width: $device-size--XL) {
+      width: 304px;
+      height: 304px;
+    }
+  }
+}
