@@ -1,6 +1,6 @@
 # MLH Project - EPYG
 
-This is a [Next.js](https://nextjs.org/) project 
+EPYG: Every Place You Go!
 
 ## Try in link
 
