@@ -4,6 +4,7 @@ import styles from './HomePlace.module.scss'
 import CircularProgress from '@mui/material/CircularProgress';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import axios from 'axios';
+import { IMAGES } from './constants';
 
 interface HomePlaceProps {
   value: unknown
@@ -12,6 +13,7 @@ interface HomePlaceProps {
 const HomePlace = ({
   value,
 }: HomePlaceProps) => {
+  const [imageApiDone, setImageApiDone] = useState(false)
   const trendRef = useRef<HTMLDivElement>(null);
   const [trends, setTrends] = useState<any[]>([])
   const [images, setImages] = useState<string[]>([])
@@ -20,60 +22,56 @@ const HomePlace = ({
     lng: number
   } | null>(null) // null
 
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchPlace = async () => {
-    const response = await axios.post('http://localhost:2000/location', {
-      place: (value as any).structured_formatting.main_text
-    })
-    console.log('response : ', response)
-    setPlace({
-      lat: 59.95,
-      lng: 30.33
-    })
+    try {
+      const response = await axios.post('http://localhost:5000/location', {
+        place: (value as any).structured_formatting.main_text
+      })
+      console.log('place api : ', response)
+      if (response?.data) {
+        setPlace(response?.data)
+      }
+    } catch(err) {
+      console.log('error : ', err)
+    }
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchImages = () => {
-    setImages(['1', '2', '3', '4', '5', '6'])
+  const fetchImages = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/images', {
+        place: (value as any).structured_formatting.main_text
+      })
+      console.log('images api : ', response)
+      if (response?.data) {
+        setImages(IMAGES)
+      }
+    } catch(err) {
+      console.log('error : ', err)
+    }
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchTrends = () => {
-    setTrends([{
-      '2022-02-01': 20,
-    }, {
-      '2022-02-02': 30
-    }, {
-      '2022-02-03': 40
-    }, {
-      '2022-02-04': 35
-    }, {
-      '2022-02-05': 30
-    }, {
-      '2022-02-06': 40
-    }, {
-      '2022-02-07': 60
-    }, {
-      '2022-02-08': 20
-    }, {
-      '2022-02-09': 10
-    }, {
-      '2022-02-10': 40
-    }, {
-      '2022-02-11': 30
-    }, {
-      '2022-02-12': 35
-    }])
+  const fetchTrends = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/trends', {
+        place: (value as any).structured_formatting.main_text
+      })
+      console.log('trend api : ', response)
+      setImageApiDone(true)
+      if (response?.data) {
+        setTrends(response?.data)
+      }
+    } catch(err) {
+      console.log('error : ', err)
+    }
   }
   
   useEffect(() => {
-    setTimeout(() => {
-      fetchPlace()
-      fetchImages()
-      fetchTrends()
-      console.log('done!')
-    }, 1000)
+    fetchPlace()
+    fetchImages()
+    fetchTrends()
   }, [value])
 
   const convertedTrends = useMemo(() => {
@@ -81,7 +79,7 @@ const HomePlace = ({
       time: any
       count: any
     }[] = []
-    trends.forEach((trend: any) => {
+    trends?.forEach((trend: any) => {
       const destructured = Object.entries(trend)[0]
       convertedData.push({
         time: destructured[0],
@@ -98,10 +96,7 @@ const HomePlace = ({
           {place
             ?
             <GoogleMapReact
-              defaultCenter={{
-                lat: 59.95,
-                lng: 30.33
-              }}
+              defaultCenter={place}
               defaultZoom={11}
             />
             : 
@@ -133,7 +128,7 @@ const HomePlace = ({
       </div>
       
       <div className={styles.images}>
-        {images.length > 0
+        {imageApiDone
           ?
           <div className={styles.image_list}>
             {images.map((url) => (
