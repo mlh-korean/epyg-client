@@ -1,0 +1,44 @@
+.container {
+  background-color: #f9fbfc;
+}
+
+.hero {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.introduction {
+  width: 50%;
+  padding: 7rem 0 12rem;
+}
+
+.service {
+  width: 50%;
+  background-image: url('/background3.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+.title_container {
+  margin-left: 5rem;
+}
+
+.input_container {
+  width: 400px;
+  margin-top: 1rem;
+  margin-left: 5rem;
+}
+
+.input {
+  
+}
+
+.title {
+  font-size: 3rem;
+
+  strong {
+    color: #d32f2f;
+  }
+}
