@@ -10,8 +10,8 @@ interface HomePlaceProps {
 const HomePlace = ({
   value,
 }: HomePlaceProps) => {
-  const [trends, setTrends] = useState([])
-  const [images, setImages] = useState([])
+  const [trends, setTrends] = useState<any[]>([])
+  const [images, setImages] = useState<string[]>([])
   const [place, setPlace] = useState<{
     lat: number
     lng: number
