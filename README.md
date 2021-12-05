@@ -4,7 +4,8 @@ EPYG: Every Place You Go!
 
 ## Try in link
 
-Vercel is used to upload this repository and you can check out this project [here](https://epyg-client.vercel.app/)
+Vercel is used to upload this repository and you can check out this project [here](https://epyg-client.vercel.app/). 
+
 (However, the api is not on the server. So some features of this service would not be available without running local api. To run local api, you need to clone [this repo](https://github.com/mlh-korean/epyg-python-api) and get it running in your local computer.)
 
 ## Offered features
